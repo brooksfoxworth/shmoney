@@ -1,5 +1,7 @@
 import { ArrowRight, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import IPhoneMockup from '@/components/IPhoneMockup';
+import LaptopMockup from '@/components/LaptopMockup';
 
 const Hero = () => {
   const scrollToContact = () => {
@@ -85,9 +87,13 @@ const Hero = () => {
         <div className="hero-main-content flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
           {/* Hero text column */}
           <div className="hero-text-column flex-1 text-center lg:text-left animate-fade-in">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-8 lg:mb-12 leading-tight">
-              Ride the Wave of
-              <span className="block gradient-text pt-4 lg:pt-6 pb-2">Digital Success</span>
+            <h1 className="hero-heading text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-8 lg:mb-12 leading-tight">
+              <span className="hero-heading-main" data-text="Ride the Wave of">
+                Ride the Wave of
+              </span>
+              <span className="block hero-heading-accent gradient-text pt-4 lg:pt-6 pb-2">
+                Digital Success
+              </span>
             </h1>
             
             <p className="text-lg md:text-xl lg:text-2xl text-gray-600 mb-8 lg:mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed animate-fade-in-delay">
@@ -116,22 +122,18 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Hero mockup column */}
+          {/* Hero mockup column - Both mockups */}
           <div className="hero-mockup-column flex-1 flex justify-center lg:justify-end items-center mt-8 lg:mt-0 animate-fade-in-delay">
-            <div className="iphone-mockup-straight">
-              <img 
-                src={`/assets/images/mockup.png?v=${Date.now()}`}
-                alt="iPhone displaying Shmoney reel" 
-                className="iphone-frame-straight w-full h-auto block relative z-20"
-              />
-              <video 
-                src={`/assets/videos/reel.mp4?v=${Date.now()}`}
-                className="reel-inside-straight-iphone absolute object-cover z-10"
-                autoPlay 
-                muted 
-                loop 
-                playsInline
-              />
+            <div className="mockups-container relative">
+              {/* Laptop mockup as the main focus */}
+              <div className="laptop-mockup-wrapper">
+                <LaptopMockup />
+              </div>
+              
+              {/* Phone mockup positioned to the side/front */}
+              <div className="phone-mockup-wrapper">
+                <IPhoneMockup />
+              </div>
             </div>
           </div>
         </div>

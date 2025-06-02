@@ -139,63 +139,12 @@
   }
 }
 
-@keyframes text-reveal {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes icon-float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-5px);
-  }
-}
-
-@keyframes feature-slide-in {
-  0% {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes pulse-dot {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.2);
-    opacity: 0.8;
-  }
-}
-
 @keyframes button-glow {
   0%, 100% {
     box-shadow: 0 0 5px rgba(37, 99, 235, 0.3);
   }
   50% {
     box-shadow: 0 0 20px rgba(37, 99, 235, 0.5), 0 0 30px rgba(249, 115, 22, 0.3);
-  }
-}
-
-@keyframes cta-pulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.02);
   }
 }
 
@@ -215,100 +164,8 @@
   animation: wave-shimmer 3s ease-in-out infinite;
 }
 
-.text-reveal {
-  animation: text-reveal 1s ease-out;
-}
-
-.icon-float {
-  animation: icon-float 2s ease-in-out infinite;
-}
-
-.feature-slide-in {
-  animation: feature-slide-in 0.6s ease-out forwards;
-  opacity: 0;
-}
-
-.pulse-dot {
-  animation: pulse-dot 2s ease-in-out infinite;
-}
-
 .button-glow {
   animation: button-glow 3s ease-in-out infinite;
-}
-
-.service-card-glow {
-  animation: fade-in-delay 0.8s ease-out forwards;
-  opacity: 0;
-}
-
-.cta-pulse {
-  animation: cta-pulse 2s ease-in-out infinite;
-}
-
-/* Hover effects */
-.service-card-glow:hover {
-  box-shadow: 0 20px 40px rgba(37, 99, 235, 0.1), 0 0 0 1px rgba(37, 99, 235, 0.1);
-}
-
-/* iPhone mockup styles */
-.iphone-mockup-straight {
-  position: relative; /* For absolute positioning of children */
-  width: 220px;       /* Or the previously set desired width */
-  max-width: 100%;
-  margin: 20px auto;  /* Adjust for layout if needed */
-  filter: drop-shadow(0 25px 50px -12px rgba(0, 0, 0, 0.25));
-  transform: perspective(1000px) rotateY(-5deg);
-  transition: transform 0.3s ease;
-}
-
-/* Override Tailwind width classes if needed */
-@media (min-width: 640px) {
-  .iphone-mockup-straight {
-    width: 240px; /* Slightly larger on tablets */
-  }
-}
-
-@media (min-width: 1024px) {
-  .iphone-mockup-straight {
-    width: 260px; /* Slightly larger on desktop */
-  }
-}
-
-@media (min-width: 1280px) {
-  .iphone-mockup-straight {
-    width: 280px; /* Original size on large screens */
-  }
-}
-
-.iphone-mockup-straight:hover {
-  transform: perspective(1000px) rotateY(0deg);
-}
-
-.iphone-frame-straight {
-  width: 100%;
-  height: auto;
-  display: block;
-  position: relative;
-  z-index: 2; /* Frame is ON TOP */
-}
-
-.reel-inside-straight-iphone {
-  position: absolute;
-  z-index: 1; /* Video is BEHIND the frame */
-  object-fit: cover; /* Fills the dimensions, crops if necessary, good for phone screen */
-  background-color: #000000; /* Black background in case video loads slow */
-
-  /* --- ESTIMATED VALUES TO FIT VIDEO INSIDE A TYPICAL STRAIGHT-ON PHONE FRAME --- */
-  /* These percentages assume the phone screen starts about 12% from the top/bottom, */
-  /* and about 7% from the left/right edges of the mockup.png. */
-  /* You (the user) may need to slightly adjust these for a perfect fit */
-  /* with your specific 'mockup.png' using browser developer tools. */
-  top: 12%;
-  left: 7%;
-  width: 86%;  /* (100% - 7% left - 7% right) */
-  height: 76%; /* (100% - 12% top - 12% bottom - adjust based on screen shape) */
-  /* Common rounded corners for phone screens, adjust to your mockup's screen */
-  border-radius: 20px;
 }
 
 /* Ensure hero text content has proper z-index for layering */
@@ -317,14 +174,265 @@
   z-index: 3; /* Higher than mockup to ensure text is always on top */
 }
 
-/* Responsive adjustments for smaller screens */
-@media (max-width: 640px) {
-  .reel-inside-straight-iphone {
-    border-radius: 12px;
-    /* You may need to adjust positioning for smaller screens */
-    top: 11%;
-    left: 6%;
-    width: 88%;
-    height: 78%;
+/* Hero mockup column responsive behavior */
+.hero-mockup-column {
+  position: relative;
+  z-index: 2;
+}
+
+/* Mockups container styles */
+.mockups-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.laptop-mockup-wrapper {
+  position: relative;
+  z-index: 2;
+  margin-left: -80px;
+  margin-top: -50px;
+}
+
+.phone-mockup-wrapper {
+  position: absolute;
+  /* No overlap - positioned to the right with spacing */
+  right: -120px;
+  bottom: 20px;
+  z-index: 3;
+}
+
+/* Phone bubble z-index override */
+.phone-mockup-wrapper .iphone-mockup::before,
+.phone-mockup-wrapper .iphone-mockup::after {
+  z-index: 1; /* Bubble behind laptop but visible */
+}
+
+/* Responsive adjustments for mockups */
+@media (max-width: 768px) {
+  .mockups-container {
+    max-width: 400px;
+  }
+  
+  .laptop-mockup-wrapper {
+    margin-left: -50px;
+    margin-top: -30px;
+  }
+  
+  .phone-mockup-wrapper {
+    right: -80px;
+    bottom: 15px;
   }
 }
+
+@media (max-width: 640px) {
+  .mockups-container {
+    max-width: 320px;
+  }
+  
+  .laptop-mockup-wrapper {
+    margin-left: -30px;
+    margin-top: -20px;
+  }
+  
+  .phone-mockup-wrapper {
+    right: -60px;
+    bottom: 10px;
+  }
+}
+
+/* Cool typography for hero header */
+.hero-heading {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.hero-heading-main {
+  display: inline-block;
+  position: relative;
+  z-index: 2;
+}
+
+/* Subtle text shadow effect */
+.hero-heading-main::before {
+  content: attr(data-text);
+  position: absolute;
+  left: -2px;
+  top: -2px;
+  z-index: -1;
+  background: linear-gradient(135deg, #2563eb 0%, #f97316 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0;
+  filter: blur(8px);
+  transition: opacity 0.3s ease;
+}
+
+/* Subtle hover effect */
+.hero-heading:hover .hero-heading-main::before {
+  opacity: 0.3;
+}
+
+.hero-heading:hover {
+  transform: scale(1.02);
+}
+
+/* Animated underline accent */
+.hero-heading-accent {
+  position: relative;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+/* Hover effect for accent text */
+.hero-heading:hover .hero-heading-accent {
+  transform: translateY(-2px);
+}
+
+/* Simple trend line animation */
+.trend-line {
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  animation: drawTrendLine 3s ease-out forwards;
+  animation-delay: 0.5s;
+}
+
+@keyframes drawTrendLine {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Creative tech background animations */
+.flow-line-1 {
+  stroke-dasharray: 800;
+  stroke-dashoffset: 800;
+  animation: flowDraw 4s ease-out forwards;
+}
+
+.flow-line-2 {
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  animation: flowDraw 3s ease-out forwards;
+  animation-delay: 0.5s;
+}
+
+.flow-line-3 {
+  stroke-dasharray: 500;
+  stroke-dashoffset: 500;
+  animation: flowDraw 3.5s ease-out forwards;
+  animation-delay: 1s;
+}
+
+@keyframes flowDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Network nodes animations */
+.node-1, .node-2, .node-3, .node-4, .node-5 {
+  animation: nodePulse 3s ease-in-out infinite;
+}
+
+.node-1 { animation-delay: 0s; }
+.node-2 { animation-delay: 0.5s; }
+.node-3 { animation-delay: 1s; }
+.node-4 { animation-delay: 1.5s; }
+.node-5 { animation-delay: 2s; }
+
+@keyframes nodePulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.8;
+  }
+}
+
+/* Geometric shapes animations */
+.triangle-1 {
+  animation: shapeRotate 20s linear infinite;
+  transform-origin: center;
+}
+
+.square-1 {
+  animation: shapeFloat 15s ease-in-out infinite;
+}
+
+.circle-1 {
+  animation: shapePulse 10s ease-in-out infinite;
+}
+
+@keyframes shapeRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shapeFloat {
+  0%, 100% {
+    transform: rotate(45deg) translateY(0);
+  }
+  50% {
+    transform: rotate(45deg) translateY(-10px);
+  }
+}
+
+@keyframes shapePulse {
+  0%, 100% {
+    stroke-dasharray: 5,5;
+    opacity: 0.2;
+  }
+  50% {
+    stroke-dasharray: 10,5;
+    opacity: 0.4;
+  }
+}
+
+/* Floating particles */
+[class^="particle-"] {
+  animation: particleFloat 8s ease-in-out infinite;
+}
+
+.particle-0 { animation-delay: 0s; animation-duration: 8s; }
+.particle-1 { animation-delay: 1s; animation-duration: 9s; }
+.particle-2 { animation-delay: 2s; animation-duration: 7s; }
+.particle-3 { animation-delay: 3s; animation-duration: 10s; }
+.particle-4 { animation-delay: 4s; animation-duration: 8.5s; }
+.particle-5 { animation-delay: 5s; animation-duration: 9.5s; }
+.particle-6 { animation-delay: 6s; animation-duration: 7.5s; }
+.particle-7 { animation-delay: 7s; animation-duration: 8s; }
+
+@keyframes particleFloat {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.6;
+  }
+  25% {
+    transform: translateY(-15px) translateX(5px);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-5px) translateX(-5px);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translateY(-20px) translateX(3px);
+    opacity: 0.4;
+  }
+}
+
+
+
+
