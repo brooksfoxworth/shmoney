@@ -1,7 +1,7 @@
 /* iPhone Mockup Styles - OVERLAY APPROACH */
 .iphone-mockup {
     position: relative;
-    width: 180px; /* Even smaller to fit with laptop */
+    width: 240px; /* Increased from 180px */
     max-width: 100%;
     margin: 0 auto;
     transform-style: preserve-3d;
@@ -105,15 +105,21 @@
 }
 
 /* Responsive adjustments */
+@media (max-width: 1024px) {
+    .iphone-mockup {
+        width: 200px; /* Adjusted for tablet-laptop */
+    }
+}
+
 @media (max-width: 768px) {
     .iphone-mockup {
-        width: 160px; /* Smaller on tablet */
+        width: 180px; /* Increased from 160px */
     }
 }
 
 @media (max-width: 480px) {
     .iphone-mockup {
-        width: 140px; /* Even smaller on mobile */
+        width: 160px; /* Increased from 140px */
     }
 }
 

@@ -1,7 +1,8 @@
-/* Laptop Mockup Styles - OVERLAY APPROACH */
+/* Laptop Mockup Styles - Single Image Approach */
+
 .laptop-mockup {
     position: relative;
-    width: 450px; /* Increased size */
+    width: 600px; /* Increased from 450px */
     max-width: 100%;
     margin: 0 auto;
     transform-style: preserve-3d;
@@ -17,41 +18,7 @@
     display: block;
     filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.2));
     position: relative;
-    z-index: 1; /* Changed from 2 to 1 - frame is behind */
-}
-
-.laptop-screen-overlay {
-    position: absolute;
-    /* Made smaller to show screen borders */
-    top: 8%;
-    left: 14%;
-    width: 72%;
-    height: 68%;
-    overflow: hidden;
-    background-color: #000;
-    z-index: 2; /* Changed from 1 to 2 - screen content is on top */
-    border-radius: 3px; /* Slight rounding to match laptop screens */
-    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
-}
-
-.laptop-screen-content {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transform: scale(1); /* No scale needed with smaller size */
-    animation: screenShimmer 12s infinite ease-in-out;
-}
-
-/* Subtle shimmer effect for the screen content */
-@keyframes screenShimmer {
-    0%, 100% { 
-        transform: scale(1); 
-        filter: brightness(1) contrast(1);
-    }
-    50% { 
-        transform: scale(1.02); 
-        filter: brightness(1.08) contrast(1.05);
-    }
+    z-index: 1;
 }
 
 /* Hover effects with 3D */
@@ -110,18 +77,18 @@
 /* Responsive adjustments */
 @media (max-width: 1024px) {
     .laptop-mockup {
-        width: 380px;
+        width: 500px; /* Increased from 380px */
     }
 }
 
 @media (max-width: 768px) {
     .laptop-mockup {
-        width: 320px;
+        width: 420px; /* Increased from 320px */
     }
 }
 
 @media (max-width: 640px) {
     .laptop-mockup {
-        width: 300px;
+        width: 360px; /* Increased from 300px */
     }
 } 

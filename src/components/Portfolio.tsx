@@ -1,33 +1,34 @@
-
 import { ExternalLink, ArrowRight, Sparkles, TrendingUp, Users, Target } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
 const Portfolio = () => {
   const projects = [
     {
-      title: 'Ocean View Restaurant',
-      category: 'Brand & Digital Strategy',
-      result: 'Grand Opening Success',
-      image: 'https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      description: 'Complete brand identity and launch campaign for a coastal dining experience',
+      title: 'Viva La Noche',
+      category: 'Web Design',
+      result: 'Stunning Digital Experience',
+      image: 'https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      description: 'Crafted a stunning web design that captures the vibrant essence of Japanese cuisine and nightlife culture',
       icon: Target,
-      color: 'from-blue-500 to-cyan-400'
+      color: 'from-blue-500 to-cyan-400',
+      link: 'https://vlncatering.com/'
     },
     {
-      title: 'WaveRider Fitness',
+      title: 'Jlew_Lifts',
       category: 'Social Media Growth',
       result: 'Community Building',
-      image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      image: '/assets/images/jacob thumnail.png',
       description: 'Building an engaged fitness community through authentic storytelling',
       icon: Users,
-      color: 'from-orange-500 to-pink-400'
+      color: 'from-orange-500 to-pink-400',
+      link: 'https://www.instagram.com/jlew_lifts/'
     },
     {
-      title: 'Coastal Tech Startup',
+      title: 'A&I Hospitality',
       category: 'Growth Marketing',
       result: 'Market Breakthrough',
-      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      description: 'Strategic digital marketing for innovative marine technology solutions',
+      image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      description: 'Connecting talented hospitality professionals with top restaurants through strategic staffing solutions',
       icon: TrendingUp,
       color: 'from-purple-500 to-blue-400'
     }
@@ -60,7 +61,12 @@ const Portfolio = () => {
             return (
               <Card 
                 key={index} 
-                className="group relative overflow-hidden hover:shadow-2xl transition-all duration-700 hover:-translate-y-4 border-0 bg-white/80 backdrop-blur-sm"
+                className={`group relative overflow-hidden hover:shadow-2xl transition-all duration-700 hover:-translate-y-4 border-0 bg-white/80 backdrop-blur-sm ${project.link ? 'cursor-pointer' : ''}`}
+                onClick={() => {
+                  if (project.link) {
+                    window.open(project.link, '_blank', 'noopener,noreferrer');
+                  }
+                }}
               >
                 <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-10 transition-opacity duration-500" 
                      style={{ background: `linear-gradient(135deg, ${project.color.split(' ')[1]}, ${project.color.split(' ')[3]})` }}>
@@ -98,9 +104,21 @@ const Portfolio = () => {
                     <span className={`inline-block bg-gradient-to-r ${project.color} text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg`}>
                       {project.category}
                     </span>
-                    <button className="text-primary hover:text-orange-500 transition-all duration-300 group/btn">
-                      <ExternalLink className="h-6 w-6 group-hover/btn:scale-125 group-hover/btn:rotate-12 transition-transform duration-300" />
-                    </button>
+                    {project.link ? (
+                      <a 
+                        href={project.link} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-primary hover:text-orange-500 transition-all duration-300 group/btn"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <ExternalLink className="h-6 w-6 group-hover/btn:scale-125 group-hover/btn:rotate-12 transition-transform duration-300" />
+                      </a>
+                    ) : (
+                      <button className="text-primary hover:text-orange-500 transition-all duration-300 group/btn">
+                        <ExternalLink className="h-6 w-6 group-hover/btn:scale-125 group-hover/btn:rotate-12 transition-transform duration-300" />
+                      </button>
+                    )}
                   </div>
                 </CardContent>
                 

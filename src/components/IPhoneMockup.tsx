@@ -64,7 +64,7 @@ const IPhoneMockup: React.FC = () => {
     <div className="iphone-mockup">
       <img 
         src="/assets/images/mockup.png" 
-        alt="iPhone displaying Shmoney marketing reel" 
+        alt="iPhone displaying GROUP3 marketing reel" 
         className="iphone-frame"
       />
       <div className="screen-overlay">
@@ -76,8 +76,9 @@ const IPhoneMockup: React.FC = () => {
           loop 
           playsInline
           webkit-playsinline="true"
+          aria-label="iPhone displaying GROUP3 marketing reel"
         >
-          <source src="/assets/videos/reel.mp4" type="video/mp4" />
+          <source src="/assets/videos/reel (2).mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>

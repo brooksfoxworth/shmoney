@@ -8,10 +8,10 @@ const HeroSection: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div className="hero-content">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Manage Your Money with Shmoney
+              Welcome to GROUP3
             </h1>
             <p className="text-lg mb-6">
-              The smart way to track expenses, save, and reach your financial goals.
+              Manage Your Money with GROUP3
             </p>
             <div className="flex flex-wrap gap-4">
               <button className="bg-black text-white px-6 py-3 rounded-lg font-medium">

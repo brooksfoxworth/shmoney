@@ -22,28 +22,55 @@ const Navigation = () => {
   };
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
-    }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+    <nav className={`fixed w-full z-50 transition-all duration-300 border-b ${
+      isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg border-gray-300' : 'bg-transparent border-gray-400/30'
+    } relative overflow-hidden`}>
+      {/* Subtle Particle Effects */}
+      <div className="absolute inset-0 pointer-events-none">
+        {[...Array(6)].map((_, i) => (
+          <div
+            key={i}
+            className={`particle-nav particle-nav-${i}`}
+            style={{
+              left: `${15 + i * 15}%`,
+              animationDelay: `${i * 0.8}s`,
+            }}
+          />
+        ))}
+      </div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="flex justify-between items-center h-48">
           {/* Logo */}
-          <div className="flex-shrink-0">
-            <div className="font-bold text-2xl gradient-text">
-              Shmoney
-            </div>
+          <div className="logo-section flex items-center">
+            <a href="#home" className="relative group">
+              {/* Base logo with improved blue color */}
+              <img 
+                src="/assets/images/group3 logo.PNG" 
+                alt="GROUP3 Digital Marketing" 
+                className="h-40 md:h-48 w-auto logo-base transition-all duration-300"
+              />
+              {/* Hover effect with orange accent */}
+              <img 
+                src="/assets/images/group3 logo.PNG" 
+                alt="GROUP3 Digital Marketing" 
+                className="h-40 md:h-48 w-auto absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition-all duration-300 logo-hover"
+              />
+            </a>
           </div>
           
           {/* Desktop Navigation - Centered */}
           <div className="hidden md:flex items-center justify-center flex-1">
             <div className="flex items-baseline space-x-8">
-              {['Home', 'Services', 'Portfolio', 'Contact'].map((item) => (
+              {['Home', 'Services', 'Portfolio', 'Contact'].map((item, index) => (
                 <button
                   key={item}
                   onClick={() => scrollToSection(item.toLowerCase())}
-                  className="text-gray-700 hover:text-primary transition-colors duration-200 font-medium"
+                  className="nav-link text-gray-700 hover:text-primary transition-all duration-200 font-medium relative group"
+                  style={{ animationDelay: `${0.1 + index * 0.1}s` }}
                 >
                   {item}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-orange-500 group-hover:w-full transition-all duration-300" />
                 </button>
               ))}
             </div>

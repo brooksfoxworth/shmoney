@@ -12,7 +12,7 @@ const Hero = () => {
   };
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-x-hidden lg:overflow-hidden pt-16 lg:pt-20 xl:pt-24">
       {/* Enhanced coastal background with floating particles */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-cyan-50 to-orange-50"></div>
@@ -83,7 +83,7 @@ const Hero = () => {
         </svg>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:py-8">
         <div className="hero-main-content flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
           {/* Hero text column */}
           <div className="hero-text-column flex-1 text-center lg:text-left animate-fade-in">
@@ -124,7 +124,7 @@ const Hero = () => {
 
           {/* Hero mockup column - Both mockups */}
           <div className="hero-mockup-column flex-1 flex justify-center lg:justify-end items-center mt-8 lg:mt-0 animate-fade-in-delay">
-            <div className="mockups-container relative">
+            <div className="mockups-container relative overflow-visible">
               {/* Laptop mockup as the main focus */}
               <div className="laptop-mockup-wrapper">
                 <LaptopMockup />

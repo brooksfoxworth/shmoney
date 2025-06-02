@@ -1,4 +1,3 @@
-
 import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone } from 'lucide-react';
 
 const Footer = () => {
@@ -10,7 +9,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="col-span-1 md:col-span-2">
-            <div className="font-bold text-3xl gradient-text mb-4">Shmoney</div>
+            <div className="font-bold text-3xl gradient-text mb-4">GROUP3</div>
             <p className="text-gray-400 mb-6 max-w-md">
               Leading digital marketing agency specializing in growth strategies, 
               social media marketing, and brand development that drives real results.
@@ -59,7 +58,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5" />
-                <span>hello@shmoney.com</span>
+                <span>hello@group3.com</span>
               </div>
               <div className="text-sm">
                 <p>123 Business Ave, Suite 100</p>
@@ -72,7 +71,7 @@ const Footer = () => {
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
-              © {currentYear} Shmoney. All rights reserved.
+              © {currentYear} GROUP3. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((link, index) => (

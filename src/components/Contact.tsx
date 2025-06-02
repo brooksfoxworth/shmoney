@@ -1,11 +1,19 @@
-
 import { useState } from 'react';
-import { Phone, Mail, MapPin, Send } from 'lucide-react';
+import { Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
+import emailjs from '@emailjs/browser';
+
+// Initialize EmailJS with your public key
+const EMAILJS_SERVICE_ID = 'service_dh0s69r';
+const EMAILJS_TEMPLATE_ID = 'template_tsisbap';
+const EMAILJS_PUBLIC_KEY = 'NYcUimX7h2mwHMYT7';
+
+// Initialize EmailJS
+emailjs.init(EMAILJS_PUBLIC_KEY);
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -14,16 +22,56 @@ const Contact = () => {
     company: '',
     message: ''
   });
+  const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    toast({
-      title: "Message Sent!",
-      description: "We'll get back to you within 24 hours.",
-    });
-    setFormData({ name: '', email: '', company: '', message: '' });
+    setIsLoading(true);
+    
+    try {
+      // Send email using EmailJS
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        company: formData.company || 'Not provided',
+        message: formData.message,
+        to_email: 'marcgroup3@gmail.com',
+        reply_to: formData.email,
+      };
+
+      console.log('Sending email with params:', templateParams);
+
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        templateParams
+      );
+      
+      toast({
+        title: "Message Sent Successfully!",
+        description: "We'll get back to you within 24 hours.",
+      });
+      
+      // Clear form
+      setFormData({ name: '', email: '', company: '', message: '' });
+    } catch (error) {
+      console.error('Failed to send email:', error);
+      
+      // More detailed error message
+      let errorMessage = "Please try again or email us directly at marcgroup3@gmail.com";
+      if (error instanceof Error) {
+        errorMessage = `Error: ${error.message}`;
+      }
+      
+      toast({
+        title: "Failed to send message",
+        description: errorMessage,
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -46,11 +94,11 @@ const Contact = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="max-w-2xl mx-auto">
           {/* Contact Form */}
-          <Card className="border-0 shadow-lg">
+          <Card className="border-0 shadow-lg mb-8">
             <CardHeader>
-              <CardTitle className="text-2xl font-bold">Send us a message</CardTitle>
+              <CardTitle className="text-2xl font-bold text-center">Send us a message</CardTitle>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -68,6 +116,7 @@ const Contact = () => {
                       onChange={handleChange}
                       placeholder="John Doe"
                       className="border-gray-300 focus:border-primary"
+                      disabled={isLoading}
                     />
                   </div>
                   <div>
@@ -83,6 +132,7 @@ const Contact = () => {
                       onChange={handleChange}
                       placeholder="john@company.com"
                       className="border-gray-300 focus:border-primary"
+                      disabled={isLoading}
                     />
                   </div>
                 </div>
@@ -99,6 +149,7 @@ const Contact = () => {
                     onChange={handleChange}
                     placeholder="Your Company"
                     className="border-gray-300 focus:border-primary"
+                    disabled={isLoading}
                   />
                 </div>
                 
@@ -115,78 +166,49 @@ const Contact = () => {
                     placeholder="Tell us about your project..."
                     rows={6}
                     className="border-gray-300 focus:border-primary"
+                    disabled={isLoading}
                   />
                 </div>
                 
                 <Button 
                   type="submit" 
                   className="w-full bg-primary hover:bg-primary/90 text-white py-3 text-lg group"
+                  disabled={isLoading}
                 >
-                  Send Message
-                  <Send className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  {isLoading ? (
+                    <>
+                      <span className="animate-pulse">Sending...</span>
+                    </>
+                  ) : (
+                    <>
+                      Send Message
+                      <Send className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                    </>
+                  )}
                 </Button>
               </form>
             </CardContent>
           </Card>
 
-          {/* Contact Information */}
-          <div className="space-y-8">
-            <Card className="border-0 shadow-lg">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold mb-6">Get in Touch</h3>
-                
-                <div className="space-y-6">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
-                      <Phone className="h-6 w-6 text-white" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900">Phone</h4>
-                      <p className="text-gray-600">+1 (555) 123-4567</p>
-                      <p className="text-sm text-gray-500">Mon-Fri 9am-6pm EST</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center">
-                      <Mail className="h-6 w-6 text-white" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900">Email</h4>
-                      <p className="text-gray-600">hello@shmoney.com</p>
-                      <p className="text-sm text-gray-500">We'll respond within 24 hours</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
-                      <MapPin className="h-6 w-6 text-white" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900">Office</h4>
-                      <p className="text-gray-600">123 Business Ave<br />Suite 100<br />New York, NY 10001</p>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* CTA Card */}
-            <Card className="gradient-bg border-0 text-white">
-              <CardContent className="p-8 text-center">
-                <h3 className="text-2xl font-bold mb-4">Ready to Get Started?</h3>
-                <p className="mb-6 opacity-90">
-                  Join 500+ satisfied clients who've transformed their business with our digital marketing expertise.
-                </p>
-                <Button 
-                  variant="secondary" 
-                  className="bg-white text-primary hover:bg-gray-100 font-semibold px-8 py-3"
-                >
-                  Schedule Free Consultation
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
+          {/* CTA Card */}
+          <Card className="gradient-bg border-0 text-white">
+            <CardContent className="p-8 text-center">
+              <h3 className="text-2xl font-bold mb-4">Ready to Get Started?</h3>
+              <p className="mb-6 opacity-90">
+                Join 500+ satisfied clients who've transformed their business with our digital marketing expertise.
+              </p>
+              <Button 
+                variant="secondary" 
+                className="bg-white text-primary hover:bg-gray-100 font-semibold px-8 py-3"
+                onClick={() => {
+                  const contactForm = document.getElementById('contact');
+                  contactForm?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                Schedule Free Consultation
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </section>

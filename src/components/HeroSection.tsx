@@ -17,8 +17,8 @@ const HeroSection: React.FC = () => {
     <section className="hero-section">
       {/* Left side content */}
       <div className="hero-content">
-        <h1>Manage Your Money with Shmoney</h1>
-        <p>Take control of your finances with our intuitive app. Track expenses, set budgets, and achieve your financial goals with ease.</p>
+        <h1>Manage Your Money with GROUP3</h1>
+        <p>The smart way to track expenses, save, and reach your financial goals.</p>
         <a href="#" className="cta-button">Get Started</a>
       </div>
       
