@@ -114,12 +114,17 @@
 @media (max-width: 768px) {
     .iphone-mockup {
         width: 180px; /* Increased from 160px */
+        /* --- ADJUSTED VALUE --- */
+        left: -50px;
     }
 }
 
 @media (max-width: 480px) {
     .iphone-mockup {
         width: 160px; /* Increased from 140px */
+        
+        /* --- ADJUSTED VALUE --- */
+        left: -50px;
     }
 }
 
@@ -134,4 +139,4 @@
 
 .reel-inside-iphone-final {
     display: none;
-} 
+}

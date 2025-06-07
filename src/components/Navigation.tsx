@@ -24,7 +24,7 @@ const Navigation = () => {
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 border-b ${
       isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg border-gray-300' : 'bg-transparent border-gray-400/30'
-    } relative overflow-hidden`}>
+    } relative`}>
       {/* Subtle Particle Effects */}
       <div className="absolute inset-0 pointer-events-none">
         {[...Array(6)].map((_, i) => (

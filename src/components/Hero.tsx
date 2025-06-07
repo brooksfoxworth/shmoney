@@ -14,7 +14,7 @@ const Hero = () => {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-x-hidden lg:overflow-hidden pt-16 lg:pt-20 xl:pt-24">
       {/* Enhanced coastal background with floating particles */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 select-none">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-cyan-50 to-orange-50"></div>
         
         {/* Floating particles effect */}
