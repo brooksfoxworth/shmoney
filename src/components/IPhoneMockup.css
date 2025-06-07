@@ -116,6 +116,7 @@
         width: 180px; /* Increased from 160px */
         /* --- ADJUSTED VALUE --- */
         left: -50px;
+        transform: perspective(1000px) rotateY(-10deg) rotateX(5deg) rotate(5deg); /* Added 5deg Z-axis rotation for mobile */
     }
 }
 

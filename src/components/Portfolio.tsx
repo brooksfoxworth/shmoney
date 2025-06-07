@@ -1,7 +1,18 @@
 import { ExternalLink, ArrowRight, Sparkles, TrendingUp, Users, Target } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import { useIsMobile } from '@/hooks/use-mobile';
+
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 const Portfolio = () => {
+  const isMobile = useIsMobile();
+
   const projects = [
     {
       title: 'Viva La Noche',
@@ -34,9 +45,77 @@ const Portfolio = () => {
     }
   ];
 
+  const renderProjectCard = (project: any, index: number) => {
+    const IconComponent = project.icon;
+    return (
+      <Card 
+        key={index} 
+        className={`group relative overflow-hidden hover:shadow-2xl transition-all duration-700 hover:-translate-y-4 border-0 bg-white/80 backdrop-blur-sm h-full flex flex-col ${project.link ? 'cursor-pointer' : ''}`}
+        onClick={() => {
+          if (project.link) {
+            window.open(project.link, '_blank', 'noopener,noreferrer');
+          }
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-10 transition-opacity duration-500" 
+             style={{ background: `linear-gradient(135deg, ${project.color.split(' ')[1]}, ${project.color.split(' ')[3]})` }}>
+        </div>
+        
+        <div className="relative overflow-hidden">
+          <img 
+            src={project.image} 
+            alt={project.title}
+            className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+            <div className="absolute bottom-6 left-6 right-6">
+              <div className="flex items-center gap-2 text-white mb-2">
+                <IconComponent className="w-5 h-5" />
+                <span className="font-semibold">{project.category}</span>
+              </div>
+              <div className="text-orange-300 font-medium">{project.result}</div>
+            </div>
+          </div>
+          
+          <div className="absolute top-4 right-4 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110">
+            <IconComponent className="w-6 h-6 text-primary" />
+          </div>
+        </div>
+        
+        <CardContent className="p-8 flex flex-col flex-grow">
+          <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors duration-300">
+            {project.title}
+          </h3>
+          <p className="text-gray-600 mb-6 leading-relaxed flex-grow">{project.description}</p>
+          
+          <div className="flex items-center justify-between mt-auto">
+            <span className={`inline-block bg-gradient-to-r ${project.color} text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg`}>
+              {project.category}
+            </span>
+            {project.link ? (
+              <a 
+                href={project.link} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-primary hover:text-orange-500 transition-all duration-300 group/btn"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <ExternalLink className="h-6 w-6 group-hover/btn:scale-125 group-hover/btn:rotate-12 transition-transform duration-300" />
+              </a>
+            ) : (
+              // Keep a button-like element for consistent spacing even if no link
+              <div className="w-6 h-6"></div>
+            )}
+          </div>
+        </CardContent>
+        
+        <div className="absolute inset-0 rounded-lg border-2 border-transparent group-hover:border-gradient-to-r group-hover:from-blue-400 group-hover:to-orange-400 transition-all duration-500 opacity-0 group-hover:opacity-50"></div>
+      </Card>
+    );
+  }
+
   return (
     <section id="portfolio" className="py-20 relative overflow-hidden">
-      {/* Background elements */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-50 to-blue-50/30"></div>
       <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-blue-100 to-transparent rounded-full opacity-30 -translate-y-48 translate-x-48"></div>
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-orange-100 to-transparent rounded-full opacity-30 translate-y-48 -translate-x-48"></div>
@@ -55,82 +134,28 @@ const Portfolio = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
-          {projects.map((project, index) => {
-            const IconComponent = project.icon;
-            return (
-              <Card 
-                key={index} 
-                className={`group relative overflow-hidden hover:shadow-2xl transition-all duration-700 hover:-translate-y-4 border-0 bg-white/80 backdrop-blur-sm ${project.link ? 'cursor-pointer' : ''}`}
-                onClick={() => {
-                  if (project.link) {
-                    window.open(project.link, '_blank', 'noopener,noreferrer');
-                  }
-                }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-10 transition-opacity duration-500" 
-                     style={{ background: `linear-gradient(135deg, ${project.color.split(' ')[1]}, ${project.color.split(' ')[3]})` }}>
-                </div>
-                
-                <div className="relative overflow-hidden">
-                  <img 
-                    src={project.image} 
-                    alt={project.title}
-                    className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <div className="absolute bottom-6 left-6 right-6">
-                      <div className="flex items-center gap-2 text-white mb-2">
-                        <IconComponent className="w-5 h-5" />
-                        <span className="font-semibold">{project.category}</span>
-                      </div>
-                      <div className="text-orange-300 font-medium">{project.result}</div>
-                    </div>
-                  </div>
-                  
-                  {/* Floating icon */}
-                  <div className="absolute top-4 right-4 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110">
-                    <IconComponent className="w-6 h-6 text-primary" />
-                  </div>
-                </div>
-                
-                <CardContent className="p-8">
-                  <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors duration-300">
-                    {project.title}
-                  </h3>
-                  <p className="text-gray-600 mb-6 leading-relaxed">{project.description}</p>
-                  
-                  <div className="flex items-center justify-between">
-                    <span className={`inline-block bg-gradient-to-r ${project.color} text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg`}>
-                      {project.category}
-                    </span>
-                    {project.link ? (
-                      <a 
-                        href={project.link} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="text-primary hover:text-orange-500 transition-all duration-300 group/btn"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <ExternalLink className="h-6 w-6 group-hover/btn:scale-125 group-hover/btn:rotate-12 transition-transform duration-300" />
-                      </a>
-                    ) : (
-                      <button className="text-primary hover:text-orange-500 transition-all duration-300 group/btn">
-                        <ExternalLink className="h-6 w-6 group-hover/btn:scale-125 group-hover/btn:rotate-12 transition-transform duration-300" />
-                      </button>
-                    )}
-                  </div>
-                </CardContent>
-                
-                {/* Animated border effect */}
-                <div className="absolute inset-0 rounded-lg border-2 border-transparent group-hover:border-gradient-to-r group-hover:from-blue-400 group-hover:to-orange-400 transition-all duration-500 opacity-0 group-hover:opacity-50"></div>
-              </Card>
-            );
-          })}
-        </div>
+        {isMobile ? (
+          <Swiper
+            modules={[Pagination]}
+            spaceBetween={30}
+            slidesPerView={1.2} // Show a bit of the next card
+            centeredSlides={true}
+            pagination={{ clickable: true }}
+            className="pb-12" // Add padding for pagination dots
+          >
+            {projects.map((project, index) => (
+              <SwiperSlide key={index} className="h-auto pb-4"> {/* Ensure slides accommodate taller cards */}
+                {renderProjectCard(project, index)}
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+            {projects.map((project, index) => renderProjectCard(project, index))}
+          </div>
+        )}
 
-        {/* Call to action with special styling */}
-        <div className="text-center">
+        <div className="text-center mt-20"> {/* Increased margin for better spacing after carousel*/}
           <div className="inline-block bg-gradient-to-r from-blue-600 via-purple-600 to-orange-500 p-1 rounded-2xl shadow-2xl hover:shadow-blue-500/25 transition-all duration-500 group">
             <button 
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}

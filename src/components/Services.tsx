@@ -1,8 +1,19 @@
 
 import { Code, Video, TrendingUp } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { useIsMobile } from '@/hooks/use-mobile';
+
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 const Services = () => {
+  const isMobile = useIsMobile();
+
   const services = [
     {
       icon: Code,
@@ -14,7 +25,7 @@ const Services = () => {
     {
       icon: Video,
       title: 'Full Service Video Production & Photography',
-      description: 'Professional video production and photography services that capture your brand\'s essence and tell your story.',
+      description: "Professional video production and photography services that capture your brand's essence and tell your story.",
       features: ['Commercial Video Production', 'Product Photography', 'Brand Photography', 'Video Editing & Post-Production'],
       gradient: 'from-orange-500 to-red-500'
     },
@@ -27,9 +38,50 @@ const Services = () => {
     }
   ];
 
+  const renderServiceCard = (service: any, index: number) => (
+    <Card 
+      key={index} 
+      className="group hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 border-0 bg-white overflow-hidden relative service-card-glow h-full flex flex-col"
+      style={{ animationDelay: `${index * 200}ms` }}
+    >
+      <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}></div>
+      <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-blue-400 to-orange-400 opacity-0 group-hover:opacity-20 blur-sm transition-opacity duration-500"></div>
+      
+      <CardHeader className="relative z-10 pb-6">
+        <div className={`w-20 h-20 bg-gradient-to-br ${service.gradient} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg icon-float`}>
+          <service.icon className="h-10 w-10 text-white" />
+        </div>
+        <CardTitle className="text-2xl font-bold group-hover:text-primary transition-colors mb-3">
+          {service.title}
+        </CardTitle>
+        <CardDescription className="text-gray-600 text-base leading-relaxed">
+          {service.description}
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="relative z-10 flex flex-col flex-grow">
+        <ul className="space-y-3 mb-8">
+          {service.features.map((feature: string, idx: number) => (
+            <li key={idx} className="flex items-center text-gray-700 feature-slide-in" style={{ animationDelay: `${(index * 200) + (idx * 100)}ms` }}>
+              <div className={`w-3 h-3 bg-gradient-to-r ${service.gradient} rounded-full mr-4 flex-shrink-0 pulse-dot`}></div>
+              <span className="font-medium">{feature}</span>
+            </li>
+          ))}
+        </ul>
+        
+        <div className="mt-auto">
+          <button 
+            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            className={`w-full bg-gradient-to-r ${service.gradient} text-white py-3 px-6 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105 button-glow`}
+          >
+            Learn More
+          </button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+
   return (
     <section id="services" className="relative py-24 bg-gradient-to-br from-blue-50 via-cyan-50 to-orange-50 overflow-hidden">
-      {/* Enhanced coastal wave background */}
       <div className="absolute inset-0">
         <svg 
           className="absolute top-0 left-0 w-full h-32 text-blue-100 transform rotate-180 wave-shimmer" 
@@ -67,52 +119,26 @@ const Services = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <Card 
-              key={index} 
-              className="group hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 border-0 bg-white overflow-hidden relative service-card-glow"
-              style={{ animationDelay: `${index * 200}ms` }}
-            >
-              {/* Gradient background on hover */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}></div>
-              
-              {/* Glowing border effect */}
-              <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-blue-400 to-orange-400 opacity-0 group-hover:opacity-20 blur-sm transition-opacity duration-500"></div>
-              
-              <CardHeader className="relative z-10 pb-6">
-                <div className={`w-20 h-20 bg-gradient-to-br ${service.gradient} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg icon-float`}>
-                  <service.icon className="h-10 w-10 text-white" />
-                </div>
-                <CardTitle className="text-2xl font-bold group-hover:text-primary transition-colors mb-3">
-                  {service.title}
-                </CardTitle>
-                <CardDescription className="text-gray-600 text-base leading-relaxed">
-                  {service.description}
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="relative z-10">
-                <ul className="space-y-3">
-                  {service.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center text-gray-700 feature-slide-in" style={{ animationDelay: `${(index * 200) + (idx * 100)}ms` }}>
-                      <div className={`w-3 h-3 bg-gradient-to-r ${service.gradient} rounded-full mr-4 flex-shrink-0 pulse-dot`}></div>
-                      <span className="font-medium">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                
-                <div className="mt-8">
-                  <button 
-                    onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                    className={`w-full bg-gradient-to-r ${service.gradient} text-white py-3 px-6 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105 button-glow`}
-                  >
-                    Learn More
-                  </button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        {isMobile ? (
+          <Swiper
+            modules={[Pagination]}
+            spaceBetween={30}
+            slidesPerView={1.2} // Show a bit of the next card
+            centeredSlides={true}
+            pagination={{ clickable: true }}
+            className="pb-12" // Add padding for pagination dots
+          >
+            {services.map((service, index) => (
+              <SwiperSlide key={index} className="h-auto pb-4"> {/* Ensure slides accommodate taller cards */}
+                {renderServiceCard(service, index)}
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {services.map((service, index) => renderServiceCard(service, index))}
+          </div>
+        )}
 
         <div className="text-center mt-16">
           <button 
